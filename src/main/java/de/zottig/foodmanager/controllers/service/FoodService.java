@@ -24,7 +24,7 @@ public class FoodService {
 		return foodRepository.save(food);
 	}
 
-	public void deleteById(String id) {
+	public void deleteById(Long id) {
 		foodRepository.deleteById(id);
 	}
 }

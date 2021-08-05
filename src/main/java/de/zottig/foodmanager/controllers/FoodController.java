@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import de.zottig.foodmanager.controllers.service.FoodService;
+import de.zottig.foodmanager.dto.FoodDto;
+import de.zottig.foodmanager.exception.PlaceNotFoundException;
 import de.zottig.foodmanager.models.Food;
 import de.zottig.foodmanager.models.Place;
 import de.zottig.foodmanager.repository.PlaceRepository;
