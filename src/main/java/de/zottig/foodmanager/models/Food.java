@@ -26,6 +26,12 @@ public class Food {
 	@Size(max = 50)
 	private String name;
 
+	@Size(max = 100)
+	private String quantity;
+
+	@Size(max = 1000)
+	private String description;
+
 	@ManyToOne
 	@JoinColumn(name = "place_id", nullable = false)
 	private Place place;

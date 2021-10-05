@@ -11,6 +11,10 @@ public class FoodDto {
 
 	private String name;
 
+	private String quantity;
+
+	private String description;
+
 	private Long placeId;
 
 	private String placeName;
