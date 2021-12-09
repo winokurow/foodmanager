@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import de.zottig.foodmanager.controllers.service.PlaceService;
 import de.zottig.foodmanager.dto.PlaceDto;
 import de.zottig.foodmanager.models.Place;
+import de.zottig.foodmanager.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -24,12 +24,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 public class PlaceController {
 
-	PlaceService placeService;
+	private final PlaceService placeService;
 
-	private ModelMapper modelMapper;
+	private final ModelMapper modelMapper;
 
 	@GetMapping("/places")
-	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')")
 	public List<PlaceDto> getPlaces() {
 		List<Place> places = placeService.findAll();
 		return places.stream().map(placeEntity -> convertToDto(placeEntity)).collect(Collectors.toList());

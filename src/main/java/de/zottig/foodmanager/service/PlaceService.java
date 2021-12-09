@@ -1,4 +1,4 @@
-package de.zottig.foodmanager.controllers.service;
+package de.zottig.foodmanager.service;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PlaceService {
 
-	private PlaceRepository placeRepository;
+	private final PlaceRepository placeRepository;
 
 	public List<Place> findAll() {
 		return (List<Place>) placeRepository.findAll();

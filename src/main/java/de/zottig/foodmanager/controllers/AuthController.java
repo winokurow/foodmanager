@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.zottig.foodmanager.dto.JwtResponseDto;
+import de.zottig.foodmanager.dto.LoginRequestDto;
+import de.zottig.foodmanager.dto.MessageResponseDto;
+import de.zottig.foodmanager.dto.SignupRequestDto;
 import de.zottig.foodmanager.models.ERole;
 import de.zottig.foodmanager.models.Role;
 import de.zottig.foodmanager.models.User;
-import de.zottig.foodmanager.payload.request.LoginRequest;
-import de.zottig.foodmanager.payload.request.SignupRequest;
-import de.zottig.foodmanager.payload.response.JwtResponse;
-import de.zottig.foodmanager.payload.response.MessageResponse;
 import de.zottig.foodmanager.repository.RoleRepository;
 import de.zottig.foodmanager.repository.UserRepository;
 import de.zottig.foodmanager.security.jwt.JwtUtils;
@@ -52,7 +52,7 @@ public class AuthController {
 	JwtUtils jwtUtils;
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -65,17 +65,17 @@ public class AuthController {
 				.collect(Collectors.toList());
 
 		return ResponseEntity.ok(
-				new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
+				new JwtResponseDto(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequestDto signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+			return ResponseEntity.badRequest().body(new MessageResponseDto("Error: Username is already taken!"));
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+			return ResponseEntity.badRequest().body(new MessageResponseDto("Error: Email is already in use!"));
 		}
 
 		// Create new user's account
@@ -115,6 +115,6 @@ public class AuthController {
 		user.setRoles(roles);
 		userRepository.save(user);
 
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return ResponseEntity.ok(new MessageResponseDto("User registered successfully!"));
 	}
 }

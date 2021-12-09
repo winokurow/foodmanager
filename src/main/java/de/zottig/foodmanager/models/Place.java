@@ -26,5 +26,5 @@ public class Place {
 	private String name;
 
 	@OneToMany(mappedBy = "place")
-	private Set<Food> food;
+	private Set<FoodStock> food;
 }
