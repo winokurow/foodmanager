@@ -51,7 +51,7 @@ public class AuthController {
 	@Autowired
 	JwtUtils jwtUtils;
 
-	@PostMapping("/signin")
+	@PostMapping(value = "/signin", produces = "appication/json")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
@@ -68,7 +68,7 @@ public class AuthController {
 				new JwtResponseDto(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 	}
 
-	@PostMapping("/signup")
+	@PostMapping(value = "/signup", produces = "appication/json")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequestDto signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity.badRequest().body(new MessageResponseDto("Error: Username is already taken!"));

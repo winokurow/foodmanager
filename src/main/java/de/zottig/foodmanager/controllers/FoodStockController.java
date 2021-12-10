@@ -23,24 +23,24 @@ public class FoodStockController {
 
 	private final FoodStockService foodStockService;
 
-	@GetMapping("/food-stock")
+	@GetMapping(value = "/food-stock", produces = "appication/json")
 	@PreAuthorize("hasRole('USER')")
 	public List<FoodStockDto> getFoodStock() {
 		return foodStockService.findAll();
 
 	}
 
-	@PostMapping("/food-stock")
+	@PostMapping(value = "/food-stock", produces = "appication/json")
 	public FoodStockDto insertFoodStock(@RequestBody FoodStockDto stock) {
 		return foodStockService.insertFoodStock(stock);
 	}
 
-	@PutMapping("/food-stock")
+	@PutMapping(value = "/food-stock", produces = "appication/json")
 	public FoodStockDto updateFoodStock(@RequestBody FoodStockDto stock) {
 		return foodStockService.updateFoodStock(stock);
 	}
 
-	@DeleteMapping("/food-stock/{id}")
+	@DeleteMapping(value = "/food-stock/{id}", produces = "appication/json")
 	public void deleteFoodStock(@PathVariable Long id) {
 		foodStockService.deleteById(id);
 	}

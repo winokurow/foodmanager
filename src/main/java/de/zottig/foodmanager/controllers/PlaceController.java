@@ -28,14 +28,14 @@ public class PlaceController {
 
 	private final ModelMapper modelMapper;
 
-	@GetMapping("/places")
+	@GetMapping(value = "/places", produces = "appication/json")
 	@PreAuthorize("hasRole('USER')")
 	public List<PlaceDto> getPlaces() {
 		List<Place> places = placeService.findAll();
 		return places.stream().map(placeEntity -> convertToDto(placeEntity)).collect(Collectors.toList());
 	}
 
-	@PostMapping("/places")
+	@PostMapping(value = "/places", produces = "appication/json")
 	public ResponseEntity<PlaceDto> insertPlace(@RequestBody PlaceDto dto) {
 		Place place = placeService.insert(convertToEntity(dto));
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(place.getId()).toUri();

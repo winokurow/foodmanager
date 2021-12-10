@@ -18,7 +18,7 @@ public class FoodController {
 
 	private final FoodService foodService;
 
-	@GetMapping("/food")
+	@GetMapping(value = "/food", produces = "appication/json")
 	@PreAuthorize("hasRole('USER')")
 	public List<FoodDto> getFood() {
 		return foodService.findAll();
