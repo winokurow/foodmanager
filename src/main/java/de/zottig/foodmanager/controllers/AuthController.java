@@ -34,7 +34,7 @@ import de.zottig.foodmanager.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(path = "/api/auth", produces = "application/json")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -51,7 +51,7 @@ public class AuthController {
 	@Autowired
 	JwtUtils jwtUtils;
 
-	@PostMapping(value = "/signin", produces = "appication/json")
+	@PostMapping(value = "/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
@@ -68,7 +68,7 @@ public class AuthController {
 				new JwtResponseDto(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 	}
 
-	@PostMapping(value = "/signup", produces = "appication/json")
+	@PostMapping(value = "/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequestDto signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity.badRequest().body(new MessageResponseDto("Error: Username is already taken!"));

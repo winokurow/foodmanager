@@ -12,13 +12,13 @@ import de.zottig.foodmanager.service.FoodService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(path = "/api", produces = "application/json")
 @RequiredArgsConstructor
 public class FoodController {
 
 	private final FoodService foodService;
 
-	@GetMapping(value = "/food", produces = "appication/json")
+	@GetMapping(value = "/food")
 	@PreAuthorize("hasRole('USER')")
 	public List<FoodDto> getFood() {
 		return foodService.findAll();

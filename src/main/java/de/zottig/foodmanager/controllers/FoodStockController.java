@@ -17,30 +17,29 @@ import de.zottig.foodmanager.service.FoodStockService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(path = "/api", produces = "application/json")
 @RequiredArgsConstructor
 public class FoodStockController {
 
 	private final FoodStockService foodStockService;
 
-	@GetMapping(value = "/food-stock", produces = "appication/json")
+	@GetMapping(value = "/food-stock")
 	@PreAuthorize("hasRole('USER')")
 	public List<FoodStockDto> getFoodStock() {
 		return foodStockService.findAll();
-
 	}
 
-	@PostMapping(value = "/food-stock", produces = "appication/json")
+	@PostMapping(value = "/food-stock")
 	public FoodStockDto insertFoodStock(@RequestBody FoodStockDto stock) {
 		return foodStockService.insertFoodStock(stock);
 	}
 
-	@PutMapping(value = "/food-stock", produces = "appication/json")
+	@PutMapping(value = "/food-stock")
 	public FoodStockDto updateFoodStock(@RequestBody FoodStockDto stock) {
 		return foodStockService.updateFoodStock(stock);
 	}
 
-	@DeleteMapping(value = "/food-stock/{id}", produces = "appication/json")
+	@DeleteMapping(value = "/food-stock/{id}")
 	public void deleteFoodStock(@PathVariable Long id) {
 		foodStockService.deleteById(id);
 	}

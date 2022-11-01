@@ -21,21 +21,21 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping(path = "/api", produces = "application/json")
 public class PlaceController {
 
 	private final PlaceService placeService;
 
 	private final ModelMapper modelMapper;
 
-	@GetMapping(value = "/places", produces = "appication/json")
+	@GetMapping(value = "/places")
 	@PreAuthorize("hasRole('USER')")
 	public List<PlaceDto> getPlaces() {
 		List<Place> places = placeService.findAll();
 		return places.stream().map(placeEntity -> convertToDto(placeEntity)).collect(Collectors.toList());
 	}
 
-	@PostMapping(value = "/places", produces = "appication/json")
+	@PostMapping(value = "/places")
 	public ResponseEntity<PlaceDto> insertPlace(@RequestBody PlaceDto dto) {
 		Place place = placeService.insert(convertToEntity(dto));
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(place.getId()).toUri();

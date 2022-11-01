@@ -10,6 +10,6 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/api/**").allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-				.exposedHeaders("Authorization");
+				.allowedOrigins("https://foood-manager-frontend.herokuapp.com").exposedHeaders("Authorization");
 	}
 }
